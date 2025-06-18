@@ -165,6 +165,38 @@
       box-shadow: var(--shadow-xl);
     }
 
+    /* PDF Download button */
+    .pdf-download {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .pdf-download.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .pdf-download:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
     /* Typography */
     .slide-title {
       font-family: var(--font-display);
@@ -732,6 +764,11 @@
     <i class="fas fa-arrow-up"></i>
   </button>
 
+  <!-- PDF Download button -->
+  <button class="pdf-download" id="pdfDownload" title="Download PDF">
+    <i class="fas fa-file-pdf"></i>
+  </button>
+
   <!-- Title Slide -->
   <section class="slide" id="slide1">
     <div class="slide-title animate-on-scroll">Future Network Logo Presentation</div>
@@ -902,12 +939,15 @@
 
     // Back to top functionality
     const backToTopBtn = document.getElementById('backToTop');
+    const pdfDownloadBtn = document.getElementById('pdfDownload');
     
     window.addEventListener('scroll', () => {
       if (window.pageYOffset > 300) {
         backToTopBtn.classList.add('visible');
+        pdfDownloadBtn.classList.add('visible');
       } else {
         backToTopBtn.classList.remove('visible');
+        pdfDownloadBtn.classList.remove('visible');
       }
     });
 
@@ -916,6 +956,10 @@
         top: 0,
         behavior: 'smooth'
       });
+    });
+
+    pdfDownloadBtn.addEventListener('click', () => {
+      window.open('generate-pdf.html', '_blank');
     });
 
     // Magical scroll animations
