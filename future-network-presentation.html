@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Future Network Logo Presentation</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Google Fonts: Inter & Poppins -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-green: #00d4aa;
+      --primary-blue: #2563eb;
+      --accent-yellow: #fbbf24;
+      --dark-blue: #1e40af;
+      --light-blue: #dbeafe;
+      --white: #ffffff;
+      --gray-50: #f9fafb;
+      --gray-100: #f3f4f6;
+      --gray-200: #e5e7eb;
+      --gray-300: #d1d5db;
+      --gray-600: #4b5563;
+      --gray-700: #374151;
+      --gray-800: #1f2937;
+      --gray-900: #111827;
+      --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-display: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+      --shadow-2xl: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+      --gradient-primary: linear-gradient(135deg, var(--primary-blue) 0%, var(--dark-blue) 100%);
+      --gradient-secondary: linear-gradient(135deg, var(--primary-green) 0%, #00b894 100%);
+      --gradient-accent: linear-gradient(135deg, var(--accent-yellow) 0%, #f59e0b 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--gray-50);
+      color: var(--gray-800);
+      font-family: var(--font-primary);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Custom scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--gray-100);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--primary-blue);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--dark-blue);
+    }
+
+    /* Slide container */
+    .slide {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 60px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Background patterns */
+    .slide::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(37, 99, 235, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(0, 212, 170, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(251, 191, 36, 0.02) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    /* Navigation dots */
+    .nav-dots {
+      position: fixed;
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .nav-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--gray-300);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+
+    .nav-dot:hover {
+      background: var(--primary-blue);
+      transform: scale(1.2);
+    }
+
+    .nav-dot.active {
+      background: var(--primary-blue);
+      border-color: var(--white);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Back to top button */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      background: var(--gradient-primary);
+      border: none;
+      border-radius: 50%;
+      color: var(--white);
+      font-size: 1.2rem;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    /* Typography */
+    .slide-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .slide-subtitle {
+      font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .slide-date {
+      font-size: 1rem;
+      color: var(--primary-blue);
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 1.5rem;
+      text-align: center;
+      line-height: 1.2;
+      letter-spacing: -0.01em;
+    }
+
+    .section-text {
+      font-size: clamp(1.1rem, 2vw, 1.3rem);
+      color: var(--gray-700);
+      max-width: 800px;
+      margin: 0 auto 2rem auto;
+      text-align: center;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+
+    /* Logo styling */
+    .logo-container {
+      position: relative;
+      margin: 2rem 0;
+    }
+
+    .logo-img {
+      max-width: 300px;
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: var(--shadow-2xl);
+      transition: all 0.4s ease;
+      background: var(--white);
+      padding: 20px;
+    }
+
+    .logo-img:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 30px 60px rgba(37, 99, 235, 0.2);
+    }
+
+    /* Logo description card */
+    .logo-description {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 3rem;
+      box-shadow: var(--shadow-xl);
+      border: 1px solid var(--gray-200);
+      max-width: 900px;
+      margin: 2rem auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .logo-description::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    /* Color swatches */
+    .color-swatches {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+
+    .swatch {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .swatch::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .swatch:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .swatch-color {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      margin: 0 auto 1rem auto;
+      box-shadow: var(--shadow-md);
+      border: 3px solid var(--white);
+      position: relative;
+    }
+
+    .swatch-color::after {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 18px;
+      background: var(--gradient-primary);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .swatch:hover .swatch-color::after {
+      opacity: 1;
+    }
+
+    .swatch-label {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--gray-900);
+      margin-bottom: 0.5rem;
+    }
+
+    .swatch-hex {
+      font-family: 'Monaco', 'Consolas', monospace;
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .swatch-desc {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.5;
+    }
+
+    /* Mockup grid */
+    .mockup-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 2rem auto;
+    }
+
+    .mockup-item {
+      background: var(--white);
+      border-radius: 20px;
+      padding: 1.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--gray-200);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .mockup-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-secondary);
+    }
+
+    .mockup-item:hover {
+      transform: translateY(-12px) scale(1.02);
+      box-shadow: var(--shadow-2xl);
+    }
+
+    .mockup-img {
+      width: 100%;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .mockup-item:hover .mockup-img {
+      transform: scale(1.05);
+    }
+
+    .mockup-caption {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--gray-900);
+      text-align: center;
+      font-weight: 600;
+    }
+
+    /* Conclusion section */
+    .conclusion {
+      background: var(--gradient-primary);
+      color: var(--white);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      max-width: 900px;
+      margin: 2rem auto;
+      text-align: center;
+      font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+      box-shadow: var(--shadow-2xl);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .conclusion::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      animation: rotate 20s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .conclusion > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Presenter section */
+    .presenter {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-align: center;
+      margin-top: 2rem;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--gray-900);
+      color: var(--white);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+    }
+
+    .footer-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .footer-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-text {
+      font-size: 1.1rem;
+      color: var(--gray-300);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .contact-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--gradient-primary);
+      color: var(--white);
+      text-decoration: none;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-lg);
+    }
+
+    .contact-link:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-xl);
+    }
+
+    .contact-link i {
+      font-size: 1.2rem;
+    }
+
+    /* Magical scroll animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInScale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes slideInLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes slideInRight {
+      from {
+        opacity: 0;
+        transform: translateX(50px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.3);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+      }
+      70% {
+        transform: scale(0.9);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0px);
+      }
+      50% {
+        transform: translateY(-10px);
+      }
+    }
+
+    /* Animation classes */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .animate-on-scroll.animated {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .slide-in-left {
+      opacity: 0;
+      transform: translateX(-50px);
+      transition: all 0.8s ease;
+    }
+
+    .slide-in-left.animated {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .slide-in-right {
+      opacity: 0;
+      transform: translateX(50px);
+      transition: all 0.8s ease;
+    }
+
+    .slide-in-right.animated {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .bounce-in {
+      opacity: 0;
+      transform: scale(0.3);
+      transition: all 0.8s ease;
+    }
+
+    .bounce-in.animated {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .float {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    /* Loading animation */
+    .loading {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--white);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease;
+    }
+
+    .loading.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--gray-200);
+      border-top: 4px solid var(--primary-blue);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .slide {
+        padding: 40px 15px;
+      }
+      
+      .nav-dots {
+        right: 15px;
+      }
+      
+      .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+      }
+      
+      .color-swatches {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+      
+      .mockup-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      
+      .logo-description {
+        padding: 2rem 1.5rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .color-swatches {
+        grid-template-columns: 1fr;
+      }
+      
+      .swatch {
+        padding: 1.5rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Loading screen -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Navigation dots -->
+  <div class="nav-dots" id="navDots"></div>
+
+  <!-- Back to top button -->
+  <button class="back-to-top" id="backToTop" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- Title Slide -->
+  <section class="slide" id="slide1">
+    <div class="slide-title animate-on-scroll">Future Network Logo Presentation</div>
+    <div class="slide-subtitle animate-on-scroll">Prepared for Mr. Mehellou</div>
+    <div class="slide-date animate-on-scroll">June 18, 2025</div>
+    <div class="logo-container">
+      <img src="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png" alt="Future Network Logo" class="logo-img float">
+    </div>
+  </section>
+
+  <!-- Logo Concept -->
+  <section class="slide" id="slide2">
+    <div class="section-title slide-in-left">Logo Concept</div>
+    <div class="section-text slide-in-right">
+      The "Future Network" logo embodies the essence of cutting-edge technology, security, and smart home innovation. Our circular design integrates energy, connectivity, and security icons around a central smart house, creating a harmonious symbol of tomorrow's connected world. The carefully chosen green and blue color palette conveys trust, innovation, and environmental sustainability.
+    </div>
+  </section>
+
+  <!-- Logo Design -->
+  <section class="slide" id="slide3">
+    <div class="section-title slide-in-left">Logo Design</div>
+    <div class="logo-description bounce-in">
+      <div class="logo-container">
+        <img src="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png" alt="Future Network Logo" class="logo-img">
+      </div>
+      <div class="section-text" style="margin-top: 2rem;">
+        Our logo features a sophisticated smart house design with integrated Wi-Fi and security camera icons within an elegant circular frame. The typography uses "FUTURE NETWORK" in a bold, modern sans-serif font, with "FUTURE" in light blue and "NETWORK" in a deeper blue for visual hierarchy. The "O" in "NETWORK" is cleverly designed as a power button, while a green lightning bolt adorns the "W" to symbolize energy and power. The tagline "THE NETWORK OF TOMORROW" completes the design, emphasizing our forward-thinking approach.
+      </div>
+    </div>
+  </section>
+
+  <!-- Brand Colors -->
+  <section class="slide" id="slide4">
+    <div class="section-title slide-in-left">Brand Colors</div>
+    <div class="section-text slide-in-right">
+      Our carefully curated color palette reflects our brand values and creates a cohesive visual identity across all touchpoints.
+    </div>
+    <div class="color-swatches">
+      <div class="swatch animate-on-scroll">
+        <div class="swatch-color" style="background: var(--primary-green);"></div>
+        <div class="swatch-label">Green</div>
+        <div class="swatch-hex">#00d4aa</div>
+        <div class="swatch-desc">Growth & Sustainability</div>
+      </div>
+      <div class="swatch animate-on-scroll">
+        <div class="swatch-color" style="background: var(--primary-blue);"></div>
+        <div class="swatch-label">Blue</div>
+        <div class="swatch-hex">#2563eb</div>
+        <div class="swatch-desc">Trust & Technology</div>
+      </div>
+      <div class="swatch animate-on-scroll">
+        <div class="swatch-color" style="background: var(--white); border: 2px solid var(--gray-300);"></div>
+        <div class="swatch-label">White</div>
+        <div class="swatch-hex">#ffffff</div>
+        <div class="swatch-desc">Clarity & Simplicity</div>
+      </div>
+      <div class="swatch animate-on-scroll">
+        <div class="swatch-color" style="background: var(--accent-yellow);"></div>
+        <div class="swatch-label">Yellow</div>
+        <div class="swatch-hex">#fbbf24</div>
+        <div class="swatch-desc">Energy & Optimism</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Mockups -->
+  <section class="slide" id="slide5">
+    <div class="section-title slide-in-left">Logo Applications</div>
+    <div class="section-text slide-in-right">
+      Our logo demonstrates exceptional versatility and maintains its impact across diverse applications, from digital interfaces to physical materials.
+    </div>
+    <div class="mockup-grid">
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/6.png" alt="Smartphone Mockup" class="mockup-img">
+        <div class="mockup-caption">Smartphone Screen</div>
+      </div>
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/7.png" alt="Tablet Mockup" class="mockup-img">
+        <div class="mockup-caption">Tablet Screen</div>
+      </div>
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/8.png" alt="T-shirt Mockup" class="mockup-img">
+        <div class="mockup-caption">T-shirt</div>
+      </div>
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/9.png" alt="Dog Bandana Mockup" class="mockup-img">
+        <div class="mockup-caption">Dog Bandana</div>
+      </div>
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/10.png" alt="Office Poster Mockup" class="mockup-img">
+        <div class="mockup-caption">Office Poster</div>
+      </div>
+      <div class="mockup-item animate-on-scroll">
+        <img src="Images/11.png" alt="Billboard Mockup" class="mockup-img">
+        <div class="mockup-caption">Billboard</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion -->
+  <section class="slide" id="slide6">
+    <div class="section-title" style="color: var(--white);">Conclusion</div>
+    <div class="conclusion bounce-in">
+      The "Future Network" branding represents a sophisticated, innovative, and trustworthy identity that perfectly aligns with our vision of delivering cutting-edge smart home and networking solutions. We've created a design that not only looks premium but also communicates our commitment to excellence and forward-thinking technology.
+    </div>
+  </section>
+
+  <!-- Presenter Slide -->
+  <section class="slide" id="slide7">
+    <div class="presenter slide-in-left">Presented by Marwen Rabai</div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-title">Get in Touch</div>
+      <div class="footer-text">
+        Ready to bring your vision to life? Let's discuss your project and explore the possibilities together.
+      </div>
+      <a href="https://marwenrabai.mystrikingly.com/" target="_blank" class="contact-link">
+        <i class="fas fa-external-link-alt"></i>
+        Visit Marwen Rabai's Portfolio
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // Loading screen
+    window.addEventListener('load', function() {
+      setTimeout(() => {
+        document.getElementById('loading').classList.add('hidden');
+      }, 1000);
+    });
+
+    // Navigation dots
+    const slides = document.querySelectorAll('.slide');
+    const navDots = document.getElementById('navDots');
+
+    // Create navigation dots
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = 'nav-dot';
+      dot.addEventListener('click', () => {
+        slides[index].scrollIntoView({ behavior: 'smooth' });
+      });
+      navDots.appendChild(dot);
+    });
+
+    // Update active dot on scroll
+    const dots = document.querySelectorAll('.nav-dot');
+    
+    function updateActiveDot() {
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+      
+      slides.forEach((slide, index) => {
+        const slideTop = slide.offsetTop;
+        const slideBottom = slideTop + slide.offsetHeight;
+        
+        if (scrollPosition >= slideTop && scrollPosition < slideBottom) {
+          dots.forEach(dot => dot.classList.remove('active'));
+          dots[index].classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', updateActiveDot);
+    window.addEventListener('load', updateActiveDot);
+
+    // Back to top functionality
+    const backToTopBtn = document.getElementById('backToTop');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+
+    // Magical scroll animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animated');
+        }
+      });
+    }, observerOptions);
+
+    // Observe all animated elements
+    const animatedElements = document.querySelectorAll('.animate-on-scroll, .slide-in-left, .slide-in-right, .bounce-in');
+    animatedElements.forEach(el => {
+      observer.observe(el);
+    });
+
+    // Parallax effect for background patterns
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      const parallax = document.querySelectorAll('.slide::before');
+      
+      parallax.forEach(element => {
+        const speed = 0.5;
+        element.style.transform = `translateY(${scrolled * speed}px)`;
+      });
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
