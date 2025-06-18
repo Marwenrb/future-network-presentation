@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate PDF - Future Network Presentation</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -85,18 +84,6 @@
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        
-        #pdfContent {
-            position: absolute;
-            left: -9999px;
-            top: -9999px;
-            width: 800px;
-            background: white;
-            color: black;
-            padding: 40px;
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-        }
     </style>
 </head>
 <body>
@@ -127,73 +114,6 @@
         </div>
     </div>
 
-    <!-- PDF Content -->
-    <div id="pdfContent">
-        <h1 style="text-align: center; color: #2563eb; font-size: 2.5em; margin-bottom: 30px; font-weight: bold;">
-            Future Network Logo Presentation
-        </h1>
-        
-        <p><strong>Prepared for:</strong> Mr. Mehellou</p>
-        <p><strong>Date:</strong> June 18, 2025</p>
-        <p><strong>Presented by:</strong> Marwen Rabai</p>
-        
-        <h2 style="color: #2563eb; margin-top: 40px; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Logo Concept</h2>
-        <p style="margin-bottom: 15px;">
-            The "Future Network" logo embodies the essence of cutting-edge technology, security, and smart home innovation. 
-            Our circular design integrates energy, connectivity, and security icons around a central smart house, creating 
-            a harmonious symbol of tomorrow's connected world.
-        </p>
-        
-        <h2 style="color: #2563eb; margin-top: 40px; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Logo Design</h2>
-        <p style="margin-bottom: 15px;">
-            Our logo features a sophisticated smart house design with integrated Wi-Fi and security camera icons within 
-            an elegant circular frame. The typography uses "FUTURE NETWORK" in a bold, modern sans-serif font, with 
-            "FUTURE" in light blue and "NETWORK" in a deeper blue for visual hierarchy.
-        </p>
-        
-        <h2 style="color: #2563eb; margin-top: 40px; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Brand Colors</h2>
-        <p style="margin-bottom: 15px;">Our carefully curated color palette reflects our brand values:</p>
-        
-        <div style="display: flex; gap: 20px; margin: 20px 0; justify-content: center;">
-            <div style="text-align: center;">
-                <div style="width: 50px; height: 50px; background: #00d4aa; border-radius: 10px; margin: 0 auto 10px; border: 2px solid #ddd;"></div>
-                <strong>Green #00d4aa</strong><br>
-                <small>Growth & Sustainability</small>
-            </div>
-            <div style="text-align: center;">
-                <div style="width: 50px; height: 50px; background: #2563eb; border-radius: 10px; margin: 0 auto 10px; border: 2px solid #ddd;"></div>
-                <strong>Blue #2563eb</strong><br>
-                <small>Trust & Technology</small>
-            </div>
-            <div style="text-align: center;">
-                <div style="width: 50px; height: 50px; background: #fbbf24; border-radius: 10px; margin: 0 auto 10px; border: 2px solid #ddd;"></div>
-                <strong>Yellow #fbbf24</strong><br>
-                <small>Energy & Optimism</small>
-            </div>
-        </div>
-        
-        <h2 style="color: #2563eb; margin-top: 40px; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Logo Applications</h2>
-        <p style="margin-bottom: 15px;">Our logo demonstrates exceptional versatility across diverse applications:</p>
-        <ul style="margin-left: 20px; margin-bottom: 15px;">
-            <li style="margin-bottom: 5px;">Smartphone and tablet screens</li>
-            <li style="margin-bottom: 5px;">T-shirts and merchandise</li>
-            <li style="margin-bottom: 5px;">Office posters and billboards</li>
-            <li style="margin-bottom: 5px;">Digital marketing materials</li>
-        </ul>
-        
-        <h2 style="color: #2563eb; margin-top: 40px; margin-bottom: 15px; font-size: 1.5em; font-weight: bold;">Conclusion</h2>
-        <p style="margin-bottom: 15px;">
-            The "Future Network" branding represents a sophisticated, innovative, and trustworthy identity that 
-            perfectly aligns with our vision of delivering cutting-edge smart home and networking solutions.
-        </p>
-        
-        <div style="text-align: center; margin-top: 50px; padding-top: 30px; border-top: 2px solid #2563eb;">
-            <h3 style="color: #2563eb;">Presented by Marwen Rabai</h3>
-            <p style="color: #666;">Portfolio: https://marwenrabai.mystrikingly.com/</p>
-            <p style="color: #666;">Email: rbmarwenrb@gmail.com</p>
-        </div>
-    </div>
-
     <script>
         function generatePDF() {
             const generateBtn = document.getElementById('generateBtn');
@@ -208,54 +128,102 @@
             
             setTimeout(() => {
                 try {
-                    const element = document.getElementById('pdfContent');
+                    statusText.textContent = 'Generating PDF...';
                     
-                    statusText.textContent = 'Converting to canvas...';
+                    // Create PDF using jsPDF
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('p', 'mm', 'a4');
                     
-                    html2canvas(element, {
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true,
-                        scrollX: 0,
-                        scrollY: 0,
-                        width: 800,
-                        height: element.scrollHeight
-                    }).then(canvas => {
-                        statusText.textContent = 'Generating PDF...';
-                        
-                        const imgData = canvas.toDataURL('image/png');
-                        const pdf = new jsPDF('p', 'mm', 'a4');
-                        
-                        const imgWidth = 210;
-                        const pageHeight = 295;
-                        const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                        let heightLeft = imgHeight;
-                        let position = 0;
-                        
-                        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                        heightLeft -= pageHeight;
-                        
-                        while (heightLeft >= 0) {
-                            position = heightLeft - imgHeight;
-                            pdf.addPage();
-                            pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-                            heightLeft -= pageHeight;
-                        }
-                        
-                        pdf.save('Future-Network-Presentation.pdf');
-                        
-                        statusText.textContent = '✅ PDF generated successfully!';
-                        generateBtn.disabled = false;
-                        generateBtn.innerHTML = '📄 Generate PDF';
-                    }).catch(error => {
-                        console.error('Canvas error:', error);
-                        statusText.textContent = '❌ Error generating PDF. Please try again.';
-                        generateBtn.disabled = false;
-                        generateBtn.innerHTML = '📄 Generate PDF';
-                    });
+                    // Set font
+                    pdf.setFont('helvetica');
+                    pdf.setFontSize(24);
+                    
+                    // Title
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Future Network Logo Presentation', 105, 30, { align: 'center' });
+                    
+                    // Reset font size
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    
+                    // Header info
+                    pdf.text('Prepared for: Mr. Mehellou', 20, 50);
+                    pdf.text('Date: June 18, 2025', 20, 60);
+                    pdf.text('Presented by: Marwen Rabai', 20, 70);
+                    
+                    // Logo Concept
+                    pdf.setFontSize(16);
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Logo Concept', 20, 90);
+                    
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    const conceptText = 'The "Future Network" logo embodies the essence of cutting-edge technology, security, and smart home innovation. Our circular design integrates energy, connectivity, and security icons around a central smart house, creating a harmonious symbol of tomorrow\'s connected world.';
+                    pdf.text(conceptText, 20, 100, { maxWidth: 170 });
+                    
+                    // Logo Design
+                    pdf.setFontSize(16);
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Logo Design', 20, 130);
+                    
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    const designText = 'Our logo features a sophisticated smart house design with integrated Wi-Fi and security camera icons within an elegant circular frame. The typography uses "FUTURE NETWORK" in a bold, modern sans-serif font.';
+                    pdf.text(designText, 20, 140, { maxWidth: 170 });
+                    
+                    // Brand Colors
+                    pdf.setFontSize(16);
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Brand Colors', 20, 170);
+                    
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text('Our carefully curated color palette reflects our brand values:', 20, 180);
+                    
+                    // Color swatches
+                    pdf.setFillColor(0, 212, 170);
+                    pdf.rect(20, 190, 10, 10, 'F');
+                    pdf.text('Green #00d4aa - Growth & Sustainability', 35, 200);
+                    
+                    pdf.setFillColor(37, 99, 235);
+                    pdf.rect(20, 205, 10, 10, 'F');
+                    pdf.text('Blue #2563eb - Trust & Technology', 35, 215);
+                    
+                    pdf.setFillColor(251, 191, 36);
+                    pdf.rect(20, 220, 10, 10, 'F');
+                    pdf.text('Yellow #fbbf24 - Energy & Optimism', 35, 230);
+                    
+                    // Logo Applications
+                    pdf.setFontSize(16);
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Logo Applications', 20, 250);
+                    
+                    pdf.setFontSize(12);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text('Our logo demonstrates exceptional versatility across diverse applications:', 20, 260);
+                    pdf.text('• Smartphone and tablet screens', 25, 270);
+                    pdf.text('• T-shirts and merchandise', 25, 280);
+                    pdf.text('• Office posters and billboards', 25, 290);
+                    
+                    // Footer
+                    pdf.setFontSize(14);
+                    pdf.setTextColor(37, 99, 235);
+                    pdf.text('Presented by Marwen Rabai', 105, 270, { align: 'center' });
+                    
+                    pdf.setFontSize(10);
+                    pdf.setTextColor(100, 100, 100);
+                    pdf.text('Portfolio: https://marwenrabai.mystrikingly.com/', 105, 280, { align: 'center' });
+                    pdf.text('Email: rbmarwenrb@gmail.com', 105, 285, { align: 'center' });
+                    
+                    // Save PDF
+                    pdf.save('Future-Network-Presentation.pdf');
+                    
+                    statusText.textContent = '✅ PDF generated successfully!';
+                    generateBtn.disabled = false;
+                    generateBtn.innerHTML = '📄 Generate PDF';
                     
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('PDF generation error:', error);
                     statusText.textContent = '❌ Error generating PDF. Please try again.';
                     generateBtn.disabled = false;
                     generateBtn.innerHTML = '📄 Generate PDF';
