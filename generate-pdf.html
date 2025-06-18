@@ -21,6 +21,7 @@
             padding: 2rem;
             border-radius: 20px;
             backdrop-filter: blur(10px);
+            max-width: 500px;
         }
         .btn {
             background: #00d4aa;
@@ -37,10 +38,35 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
         .info {
             margin: 1rem 0;
             font-size: 0.9rem;
             opacity: 0.8;
+        }
+        .status {
+            margin: 1rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+        }
+        .hidden {
+            display: none;
+        }
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s ease-in-out infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -54,13 +80,17 @@
             <p>Make sure all images are loaded before generating</p>
         </div>
         
-        <button class="btn" onclick="generatePDF()">
+        <button class="btn" onclick="generatePDF()" id="generateBtn">
             📄 Generate PDF
         </button>
         
         <button class="btn" onclick="openPresentation()">
             🖥️ Open Presentation
         </button>
+        
+        <div class="status hidden" id="status">
+            <p id="statusText">Generating PDF...</p>
+        </div>
         
         <div class="info">
             <p>PDF will be downloaded automatically</p>
@@ -70,32 +100,83 @@
 
     <script>
         function generatePDF() {
-            // Create a new window with the presentation
-            const presentationWindow = window.open('future-network-presentation.html', '_blank');
+            const generateBtn = document.getElementById('generateBtn');
+            const status = document.getElementById('status');
+            const statusText = document.getElementById('statusText');
             
-            presentationWindow.onload = function() {
-                const element = presentationWindow.document.body;
+            // Disable button and show status
+            generateBtn.disabled = true;
+            generateBtn.innerHTML = '<span class="loading"></span> Generating...';
+            status.classList.remove('hidden');
+            statusText.textContent = 'Loading presentation...';
+            
+            // Create iframe to load the presentation
+            const iframe = document.createElement('iframe');
+            iframe.style.position = 'absolute';
+            iframe.style.left = '-9999px';
+            iframe.style.top = '-9999px';
+            iframe.style.width = '1200px';
+            iframe.style.height = '800px';
+            iframe.src = 'future-network-presentation.html';
+            
+            document.body.appendChild(iframe);
+            
+            iframe.onload = function() {
+                statusText.textContent = 'Generating PDF...';
                 
-                const opt = {
-                    margin: 1,
-                    filename: 'Future-Network-Presentation.pdf',
-                    image: { type: 'jpeg', quality: 0.98 },
-                    html2canvas: { 
-                        scale: 2,
-                        useCORS: true,
-                        allowTaint: true
-                    },
-                    jsPDF: { 
-                        unit: 'in', 
-                        format: 'a4', 
-                        orientation: 'portrait' 
+                setTimeout(() => {
+                    try {
+                        const element = iframe.contentDocument.body;
+                        
+                        const opt = {
+                            margin: [0.5, 0.5, 0.5, 0.5],
+                            filename: 'Future-Network-Presentation.pdf',
+                            image: { type: 'jpeg', quality: 0.98 },
+                            html2canvas: { 
+                                scale: 2,
+                                useCORS: true,
+                                allowTaint: true,
+                                scrollX: 0,
+                                scrollY: 0
+                            },
+                            jsPDF: { 
+                                unit: 'in', 
+                                format: 'a4', 
+                                orientation: 'portrait' 
+                            }
+                        };
+                        
+                        // Generate PDF
+                        html2pdf().set(opt).from(element).save().then(function() {
+                            statusText.textContent = '✅ PDF generated successfully!';
+                            generateBtn.disabled = false;
+                            generateBtn.innerHTML = '📄 Generate PDF';
+                            
+                            // Remove iframe
+                            document.body.removeChild(iframe);
+                        }).catch(function(error) {
+                            console.error('PDF generation error:', error);
+                            statusText.textContent = '❌ Error generating PDF. Please try again.';
+                            generateBtn.disabled = false;
+                            generateBtn.innerHTML = '📄 Generate PDF';
+                            document.body.removeChild(iframe);
+                        });
+                        
+                    } catch (error) {
+                        console.error('Error:', error);
+                        statusText.textContent = '❌ Error generating PDF. Please try again.';
+                        generateBtn.disabled = false;
+                        generateBtn.innerHTML = '📄 Generate PDF';
+                        document.body.removeChild(iframe);
                     }
-                };
-                
-                // Generate PDF
-                html2pdf().set(opt).from(element).save().then(function() {
-                    presentationWindow.close();
-                });
+                }, 2000); // Wait 2 seconds for images to load
+            };
+            
+            iframe.onerror = function() {
+                statusText.textContent = '❌ Error loading presentation. Please check the file path.';
+                generateBtn.disabled = false;
+                generateBtn.innerHTML = '📄 Generate PDF';
+                document.body.removeChild(iframe);
             };
         }
         
