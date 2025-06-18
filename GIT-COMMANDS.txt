@@ -1,0 +1,86 @@
+GIT COMMANDS - SAVE AND PUSH
+============================
+
+STEP 1: CHECK IF GIT IS INSTALLED
+=================================
+git --version
+
+If you get an error, install Git from: https://git-scm.com/download/win
+
+STEP 2: INITIALIZE GIT REPOSITORY
+=================================
+git init
+
+STEP 3: CONFIGURE GIT (FIRST TIME ONLY)
+=======================================
+git config user.name "Marwen Rabai"
+git config user.email "rbmarwenrb@gmail.com"
+
+STEP 4: ADD ALL FILES
+=====================
+git add .
+
+STEP 5: COMMIT CHANGES
+======================
+git commit -m "Add Future Network presentation with fixed PDF generator"
+
+STEP 6: ADD REMOTE REPOSITORY
+=============================
+git remote add origin https://github.com/Marwenrb/future-network-presentation.git
+
+STEP 7: RENAME BRANCH TO MAIN
+=============================
+git branch -M main
+
+STEP 8: PUSH TO GITHUB
+======================
+git push -u origin main
+
+COMPLETE SCRIPT (COPY AND PASTE ALL AT ONCE)
+============================================
+git init
+git config user.name "Marwen Rabai"
+git config user.email "rbmarwenrb@gmail.com"
+git add .
+git commit -m "Add Future Network presentation with fixed PDF generator"
+git remote add origin https://github.com/Marwenrb/future-network-presentation.git
+git branch -M main
+git push -u origin main
+
+IF YOU GET AUTHENTICATION ERRORS
+===============================
+1. Go to GitHub.com and sign in
+2. Go to Settings > Developer settings > Personal access tokens
+3. Generate new token (classic)
+4. Give it a name like "Future Network Project"
+5. Select scopes: repo, workflow
+6. Copy the token
+7. When prompted for password, use the token instead
+
+ALTERNATIVE: USE GITHUB CLI
+===========================
+1. Install GitHub CLI: https://cli.github.com/
+2. Run: gh auth login
+3. Follow the prompts
+4. Then run the git commands above
+
+FILES THAT WILL BE PUSHED:
+==========================
+- future-network-presentation.html
+- future-network-presentation-vercel.html
+- generate-pdf.html (FIXED VERSION)
+- index.html
+- vercel.json
+- README.md
+- Images/ (all images)
+- GIT-COMMANDS.txt
+- SIMPLE-GUIDE.txt
+- manual-push-instructions.txt
+- setup-and-push.bat
+
+AFTER PUSHING:
+==============
+1. Go to your Vercel dashboard
+2. Your site will automatically redeploy
+3. Test the PDF generator - it should now work!
+4. All images should load correctly on Vercel 
