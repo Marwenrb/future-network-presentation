@@ -2,18 +2,18 @@
   "version": 2,
   "builds": [
     {
-      "src": "future-network-presentation.html",
+      "src": "*.html",
       "use": "@vercel/static"
     }
   ],
   "routes": [
     {
       "src": "/",
-      "dest": "/future-network-presentation.html"
+      "dest": "/index.html"
     },
     {
-      "src": "/(.*)",
-      "dest": "/$1"
+      "src": "/presentation",
+      "dest": "/future-network-presentation.html"
     }
   ],
   "outputDirectory": ".",
