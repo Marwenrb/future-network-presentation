@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Generate PDF - Future Network Presentation</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255,255,255,0.1);
+            padding: 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .btn {
+            background: #00d4aa;
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            margin: 1rem;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        .info {
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Future Network Presentation</h1>
+        <h2>PDF Generator</h2>
+        
+        <div class="info">
+            <p>This tool will generate a PDF version of your presentation</p>
+            <p>Make sure all images are loaded before generating</p>
+        </div>
+        
+        <button class="btn" onclick="generatePDF()">
+            📄 Generate PDF
+        </button>
+        
+        <button class="btn" onclick="openPresentation()">
+            🖥️ Open Presentation
+        </button>
+        
+        <div class="info">
+            <p>PDF will be downloaded automatically</p>
+            <p>File name: Future-Network-Presentation.pdf</p>
+        </div>
+    </div>
+
+    <script>
+        function generatePDF() {
+            // Create a new window with the presentation
+            const presentationWindow = window.open('future-network-presentation.html', '_blank');
+            
+            presentationWindow.onload = function() {
+                const element = presentationWindow.document.body;
+                
+                const opt = {
+                    margin: 1,
+                    filename: 'Future-Network-Presentation.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { 
+                        scale: 2,
+                        useCORS: true,
+                        allowTaint: true
+                    },
+                    jsPDF: { 
+                        unit: 'in', 
+                        format: 'a4', 
+                        orientation: 'portrait' 
+                    }
+                };
+                
+                // Generate PDF
+                html2pdf().set(opt).from(element).save().then(function() {
+                    presentationWindow.close();
+                });
+            };
+        }
+        
+        function openPresentation() {
+            window.open('future-network-presentation.html', '_blank');
+        }
+    </script>
+</body>
+</html> 

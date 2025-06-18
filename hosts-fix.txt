@@ -1,0 +1,16 @@
+# GitHub IP addresses (temporary fix for DNS issues)
+# Add these to your hosts file: C:\Windows\System32\drivers\etc\hosts
+
+140.82.121.3    github.com
+140.82.121.3    gist.github.com
+185.199.108.153 assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+
+# Instructions:
+# 1. Open Notepad as Administrator
+# 2. Open file: C:\Windows\System32\drivers\etc\hosts
+# 3. Add the lines above at the end
+# 4. Save the file
+# 5. Try git push again 
