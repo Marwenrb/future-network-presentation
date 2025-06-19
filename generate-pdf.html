@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Generate PDF - Future Network Presentation</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png">
+    <link rel="shortcut icon" type="image/png" href="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png">
+    <link rel="apple-touch-icon" href="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         * {
@@ -154,66 +158,73 @@
                     // Logo Concept
                     pdf.setFontSize(16);
                     pdf.setTextColor(37, 99, 235);
-                    pdf.text('Logo Concept', 20, 90);
+                    pdf.text('Logo Concept', 20, 95);
                     
-                    pdf.setFontSize(12);
+                    pdf.setFontSize(11);
                     pdf.setTextColor(0, 0, 0);
                     const conceptText = 'The "Future Network" logo embodies the essence of cutting-edge technology, security, and smart home innovation. Our circular design integrates energy, connectivity, and security icons around a central smart house, creating a harmonious symbol of tomorrow\'s connected world.';
-                    pdf.text(conceptText, 20, 100, { maxWidth: 170 });
+                    const conceptLines = pdf.splitTextToSize(conceptText, 170);
+                    pdf.text(conceptLines, 20, 105);
                     
                     // Logo Design
                     pdf.setFontSize(16);
                     pdf.setTextColor(37, 99, 235);
-                    pdf.text('Logo Design', 20, 130);
+                    pdf.text('Logo Design', 20, 140);
                     
-                    pdf.setFontSize(12);
+                    pdf.setFontSize(11);
                     pdf.setTextColor(0, 0, 0);
                     const designText = 'Our logo features a sophisticated smart house design with integrated Wi-Fi and security camera icons within an elegant circular frame. The typography uses "FUTURE NETWORK" in a bold, modern sans-serif font.';
-                    pdf.text(designText, 20, 140, { maxWidth: 170 });
+                    const designLines = pdf.splitTextToSize(designText, 170);
+                    pdf.text(designLines, 20, 150);
                     
                     // Brand Colors
                     pdf.setFontSize(16);
                     pdf.setTextColor(37, 99, 235);
-                    pdf.text('Brand Colors', 20, 170);
+                    pdf.text('Brand Colors', 20, 180);
                     
-                    pdf.setFontSize(12);
+                    pdf.setFontSize(11);
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text('Our carefully curated color palette reflects our brand values:', 20, 180);
+                    pdf.text('Our carefully curated color palette reflects our brand values:', 20, 190);
                     
-                    // Color swatches
+                    // Color swatches with better spacing
                     pdf.setFillColor(0, 212, 170);
-                    pdf.rect(20, 190, 10, 10, 'F');
-                    pdf.text('Green #00d4aa - Growth & Sustainability', 35, 200);
+                    pdf.rect(20, 200, 8, 8, 'F');
+                    pdf.text('Green #00d4aa - Growth & Sustainability', 35, 208);
                     
                     pdf.setFillColor(37, 99, 235);
-                    pdf.rect(20, 205, 10, 10, 'F');
-                    pdf.text('Blue #2563eb - Trust & Technology', 35, 215);
+                    pdf.rect(20, 215, 8, 8, 'F');
+                    pdf.text('Blue #2563eb - Trust & Technology', 35, 223);
                     
                     pdf.setFillColor(251, 191, 36);
-                    pdf.rect(20, 220, 10, 10, 'F');
-                    pdf.text('Yellow #fbbf24 - Energy & Optimism', 35, 230);
+                    pdf.rect(20, 230, 8, 8, 'F');
+                    pdf.text('Yellow #fbbf24 - Energy & Optimism', 35, 238);
                     
                     // Logo Applications
                     pdf.setFontSize(16);
                     pdf.setTextColor(37, 99, 235);
-                    pdf.text('Logo Applications', 20, 250);
+                    pdf.text('Logo Applications', 20, 260);
                     
-                    pdf.setFontSize(12);
+                    pdf.setFontSize(11);
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text('Our logo demonstrates exceptional versatility across diverse applications:', 20, 260);
-                    pdf.text('• Smartphone and tablet screens', 25, 270);
-                    pdf.text('• T-shirts and merchandise', 25, 280);
-                    pdf.text('• Office posters and billboards', 25, 290);
+                    pdf.text('Our logo demonstrates exceptional versatility across diverse applications:', 20, 270);
+                    pdf.text('• Smartphone and tablet screens', 25, 280);
+                    pdf.text('• T-shirts and merchandise', 25, 290);
+                    pdf.text('• Office posters and billboards', 25, 300);
                     
-                    // Footer
-                    pdf.setFontSize(14);
+                    // Footer with better positioning
+                    pdf.setFontSize(12);
                     pdf.setTextColor(37, 99, 235);
-                    pdf.text('Presented by Marwen Rabai', 105, 270, { align: 'center' });
+                    pdf.text('Presented by Marwen Rabai', 105, 320, { align: 'center' });
                     
-                    pdf.setFontSize(10);
+                    pdf.setFontSize(9);
                     pdf.setTextColor(100, 100, 100);
-                    pdf.text('Portfolio: https://marwenrabai.mystrikingly.com/', 105, 280, { align: 'center' });
-                    pdf.text('Email: rbmarwenrb@gmail.com', 105, 285, { align: 'center' });
+                    pdf.text('Portfolio: https://marwenrabai.mystrikingly.com/', 105, 330, { align: 'center' });
+                    pdf.text('Email: rbmarwenrb@gmail.com', 105, 335, { align: 'center' });
+                    
+                    // Add page number
+                    pdf.setFontSize(8);
+                    pdf.setTextColor(150, 150, 150);
+                    pdf.text('Page 1 of 1', 105, 280, { align: 'center' });
                     
                     // Save PDF
                     pdf.save('Future-Network-Presentation.pdf');

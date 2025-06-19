@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Image Cache - Future Network</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #1e40af;
+        }
+        .info {
+            background: #e0f2fe;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 20px 0;
+        }
+        .code {
+            background: #f1f5f9;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🖼️ Fix Image Cache Issues</h1>
+        
+        <div class="info">
+            <h3>Problem:</h3>
+            <p>Your website is showing old images because browsers cache images. Even though you've updated the files, the old versions are still being displayed.</p>
+        </div>
+
+        <h2>Solution Options:</h2>
+
+        <h3>Option 1: Force Browser Refresh (Quick Fix)</h3>
+        <p>Press these keys while on your website:</p>
+        <div class="code">
+            Windows: Ctrl + F5<br>
+            Mac: Cmd + Shift + R
+        </div>
+        <button class="btn" onclick="window.open('https://future-network-presentation.netlify.app/', '_blank')">
+            Open Website
+        </button>
+
+        <h3>Option 2: Clear Browser Cache Completely</h3>
+        <ol>
+            <li>Open your browser settings</li>
+            <li>Find "Clear browsing data" or "Privacy and security"</li>
+            <li>Select "Cached images and files"</li>
+            <li>Click "Clear data"</li>
+            <li>Refresh your website</li>
+        </ol>
+
+        <h3>Option 3: Add Cache-Busting Parameters</h3>
+        <p>You need to update your HTML file to add version parameters to image URLs:</p>
+        <div class="code">
+            Old: Images/6.png<br>
+            New: Images/6.jpeg?v=2
+        </div>
+        
+        <p>This tells the browser to load a "new" version of the image.</p>
+
+        <h3>Option 4: Use Different File Names</h3>
+        <p>Rename your updated images with version numbers:</p>
+        <div class="code">
+            6.jpeg → 6_v2.jpeg<br>
+            7.jpeg → 7_v2.jpeg<br>
+            etc.
+        </div>
+
+        <div class="info">
+            <h3>Recommended Action:</h3>
+            <p>Try Option 1 first (Ctrl+F5), then if that doesn't work, use Option 2 to clear your browser cache completely.</p>
+        </div>
+
+        <button class="btn" onclick="window.open('generate-pdf.html', '_blank')">
+            Test PDF Generation
+        </button>
+    </div>
+
+    <script>
+        // Add some helpful functionality
+        console.log('Image cache fix helper loaded');
+    </script>
+</body>
+</html> 

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Favicon - Future Network</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .btn {
+            background: #2563eb;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+        }
+        .btn:hover {
+            background: #1e40af;
+        }
+        .preview {
+            margin: 20px 0;
+            text-align: center;
+        }
+        canvas {
+            border: 1px solid #ddd;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Create Favicon from Logo</h1>
+        
+        <p>This tool will create a favicon.ico file from your Future Network logo.</p>
+        
+        <div class="preview">
+            <h3>Original Logo:</h3>
+            <img id="originalLogo" src="Images/Future Network Official Logo (Blue minimalist Smart house wifi Network Energy  Security logo)..png" alt="Future Network Logo" style="max-width: 200px;">
+        </div>
+        
+        <div class="preview">
+            <h3>Favicon Preview (32x32):</h3>
+            <canvas id="faviconCanvas" width="32" height="32"></canvas>
+        </div>
+        
+        <div class="preview">
+            <h3>Favicon Preview (16x16):</h3>
+            <canvas id="smallFaviconCanvas" width="16" height="16"></canvas>
+        </div>
+        
+        <button class="btn" onclick="createFavicon()">
+            📥 Download Favicon.ico
+        </button>
+        
+        <button class="btn" onclick="createAllSizes()">
+            📥 Download All Sizes
+        </button>
+        
+        <div id="status"></div>
+    </div>
+
+    <script>
+        const logo = document.getElementById('originalLogo');
+        const faviconCanvas = document.getElementById('faviconCanvas');
+        const smallFaviconCanvas = document.getElementById('smallFaviconCanvas');
+        const status = document.getElementById('status');
+        
+        // Create favicon preview when logo loads
+        logo.onload = function() {
+            createFaviconPreview();
+        };
+        
+        function createFaviconPreview() {
+            const ctx = faviconCanvas.getContext('2d');
+            const smallCtx = smallFaviconCanvas.getContext('2d');
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, 32, 32);
+            smallCtx.clearRect(0, 0, 16, 16);
+            
+            // Draw logo on 32x32 canvas
+            ctx.drawImage(logo, 0, 0, 32, 32);
+            
+            // Draw logo on 16x16 canvas
+            smallCtx.drawImage(logo, 0, 0, 16, 16);
+        }
+        
+        function createFavicon() {
+            status.innerHTML = 'Creating favicon.ico...';
+            
+            // Create 32x32 favicon
+            const canvas = document.createElement('canvas');
+            canvas.width = 32;
+            canvas.height = 32;
+            const ctx = canvas.getContext('2d');
+            
+            // Draw logo
+            ctx.drawImage(logo, 0, 0, 32, 32);
+            
+            // Convert to blob and download
+            canvas.toBlob(function(blob) {
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = 'favicon.ico';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                status.innerHTML = '✅ Favicon.ico downloaded successfully!';
+            }, 'image/png');
+        }
+        
+        function createAllSizes() {
+            status.innerHTML = 'Creating all favicon sizes...';
+            
+            const sizes = [16, 32, 48];
+            let completed = 0;
+            
+            sizes.forEach(size => {
+                const canvas = document.createElement('canvas');
+                canvas.width = size;
+                canvas.height = size;
+                const ctx = canvas.getContext('2d');
+                
+                ctx.drawImage(logo, 0, 0, size, size);
+                
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `favicon-${size}x${size}.png`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    completed++;
+                    if (completed === sizes.length) {
+                        status.innerHTML = '✅ All favicon sizes downloaded successfully!';
+                    }
+                }, 'image/png');
+            });
+        }
+    </script>
+</body>
+</html> 
